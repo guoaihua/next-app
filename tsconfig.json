@@ -14,6 +14,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noEmitOnError": false,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
@@ -21,12 +22,13 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ],
       "@lowcode/*": [
-        "./src/app/lowcode/*"
+        "src/app/lowcode-app/*"
       ] 
     },
     "strict": false

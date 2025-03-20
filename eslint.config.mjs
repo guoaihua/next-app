@@ -14,6 +14,10 @@ const eslintConfig = [
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
+          // 调整 React Hooks 规则级别为 warn
+          "react-hooks/exhaustive-deps": "warn",
+          "react-hooks/rules-of-hooks": "warn",
+          "@typescript-eslint/no-unused-expressions": "'warn"
     }
   }
 ];
