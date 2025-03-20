@@ -12,7 +12,6 @@ const CSRComponent = dynamic(
 export default function CSRPage() {
   return (
     <>
-      这里的内容可以首先被看到
       <Suspense fallback={<>loading</>}>
           <CSRComponent />;
       </Suspense>
