@@ -6,7 +6,6 @@ export const GoToLink = (props: { defaultValue?: string, onChange: ({url, type}:
     const [value, setValue] = useState(defaultValue)
 
     function handleChange(event) {
-        console.log('value: ', event.target.value);
         const value = event.target.value
         setValue(value)
         onChange({

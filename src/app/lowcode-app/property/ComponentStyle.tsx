@@ -38,10 +38,7 @@ export const ComponentStyle = () => {
       return;
     }
     form.resetFields();
-    console.log(
-      "currentComponent?.userCustomConfigStyles: ",
-      currentComponent?.userCustomConfigStyles
-    );
+
     if (currentComponent?.userCustomConfigStyles) {
       form.setFieldsValue({ ...currentComponent?.userCustomConfigStyles });
       setCss(toCSSStr(currentComponent?.userCustomConfigStyles));
@@ -66,7 +63,6 @@ export const ComponentStyle = () => {
     });
 
     str += `}`;
-    console.log("str: ", str);
     return str;
   }
 
@@ -83,14 +79,12 @@ export const ComponentStyle = () => {
   }
 
   const handleValueChange = (changedValues: any, allValues: any) => {
-    console.log("allValues: ", allValues);
 
     // 将字段值更新到compoent中
     updataComponentStyles(currentComponentId, allValues);
   };
 
   const handleCssEditor = debounce((value) => {
-    console.log("value: ", value);
     setCss(value);
     try {
       const cssStr = value?.replace(/(\.?[^{]+{)/, "")?.replace(/}/, "");
@@ -99,13 +93,11 @@ export const ComponentStyle = () => {
         cssObj[camelCase(name)] = value; //react组件需要短横线转驼峰
       });
 
-      console.log("css: ", cssObj);
       updataComponentStyles(currentComponentId, {
         ...form.getFieldsValue(),
         ...cssObj,
       });
     } catch (error) {
-      console.log("error: ", error);
     }
   }, 500);
   return (

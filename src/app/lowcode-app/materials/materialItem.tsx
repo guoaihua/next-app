@@ -15,7 +15,7 @@ const MaterialItem = (props: {component: any}) => {
     }))
     
     return (
-        <div className={classNames('border-solid border border-indigo-200 px-2 py-1 rounded-sm', { 'bg-amber-200': isDragging})} ref={drag as any}>
+        <div className={classNames('border-solid border border-indigo-200 px-2 py-1 rounded-sm cursor-pointer', { 'bg-amber-200': isDragging })} ref={drag as any}>
             {component?.name}
         </div>
     )

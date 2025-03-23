@@ -13,8 +13,7 @@ interface ActionModalProps {
 
 
 export const ActionModal = (props: ActionModalProps) => {
-    const { onClose, activeEventName, handleOk, action={} } = props
-    console.log('action: ', action);
+    const { onClose, activeEventName, handleOk, action = {} } = props
     const [selectedAction, setSelectedAction] = useState(action?.type)
     const [config, setConfig] = useState({})
     const actionsList = [
@@ -32,7 +31,6 @@ export const ActionModal = (props: ActionModalProps) => {
             type: 'componentMethod'
         }
     ]
-    console.log('activeEventName: ', activeEventName);
 
     return (
         <Modal
@@ -50,7 +48,6 @@ export const ActionModal = (props: ActionModalProps) => {
                         fieldNames={{ title: 'label', key: 'type' }}
                         defaultExpandAll
                         onSelect={(selectedKeys: any) => {
-                            console.log('selectedKeys: ', selectedKeys);
                             setSelectedAction(selectedKeys[0])
                         }}
                         treeData={actionsList as any} />

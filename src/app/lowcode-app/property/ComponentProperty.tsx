@@ -2,8 +2,10 @@
 import { useComponentsStore } from '@/app/lowcode-app/store/components'
 import { useComponentsConfigStore } from '@/app/lowcode-app/store/components-configs';
 import { useEffect, useMemo } from 'react';
-import { Button, Form, Input, Select } from "antd";
-import { createElement } from 'react';
+import { Button, Form, Input, Select, Switch } from "antd";
+
+
+const { TextArea } = Input;
 
 const layout = {
     labelCol: { span: 5 },
@@ -23,6 +25,12 @@ export const ComponentProperty = ()=>{
               return <Input {...props}/>;
             case 'select':
               return <Select {...props}/>;
+            case 'switch':
+                return <Switch {...props} />;
+            case 'textarea':
+                return <TextArea {...props} />;
+            case "inputNumber":
+                return <Input {...props} type="number" />;
         }
     }
 
@@ -45,8 +53,7 @@ export const ComponentProperty = ()=>{
     }
 
     const handleValueChange = (changedValues, allValues)=> {
-        console.log('changedValues: ', changedValues);
-        console.log('allValues: ', allValues);
+
         // 将字段值更新到compoent中
         updataComponentProps(currentComponentId, allValues)
     }
@@ -60,7 +67,7 @@ export const ComponentProperty = ()=>{
              {
                     currentProperty?.map(v=> {
                         return (
-                            <Form.Item name={v.name} label={v.label} rules={[{ required: true }]}>
+                            <Form.Item key={v.type} name={v.name} label={v.label} rules={[{ required: true }]}>
                                 {renderForm({type: v.type, props: v.props})}
                             </Form.Item>
                         )

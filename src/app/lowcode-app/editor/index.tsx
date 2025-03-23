@@ -21,6 +21,7 @@ const Editor = () => {
         return components.map(component => {
             // 从配置中获取组件
             const Component = componentsMap[component.type]
+
             return React.createElement(Component?.component, {
                 key: component.id,
                 id: component.id,

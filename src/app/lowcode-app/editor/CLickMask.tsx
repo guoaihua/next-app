@@ -91,10 +91,11 @@ export const ClickMask = (props: ClickMaskProps)=> {
                 left: position.left,
                 width: position.width,
                 height: position.height,
-                backgroundColor: "#e4359f0d",
+                // backgroundColor: "#e4359f0d",
                 pointerEvents: 'none', // 防止遮罩层被点击
                 zIndex: -1,
                 boxSizing: 'border-box',
+                border: '2px solid #326adf'
             }} />
 
             <div style={{
@@ -118,7 +119,7 @@ export const ClickMask = (props: ClickMaskProps)=> {
                                     style={{
                                         padding: '0 8px',
                                         backgroundColor: 'blue',
-                                        borderRadius: 4,
+                                        borderRadius: 2,
                                         color: '#fff',
                                         cursor: "pointer",
                                         whiteSpace: 'nowrap',

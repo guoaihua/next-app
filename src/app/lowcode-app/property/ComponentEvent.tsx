@@ -33,7 +33,6 @@ export const ComponentEvent = () => {
     }, [currentComponent, components])
 
 
-    console.log('currentConfigEvents, currentActiveEvents: ', currentConfigEvents, currentActiveEvents);
 
 
 
@@ -50,7 +49,6 @@ export const ComponentEvent = () => {
         if(curEditAction){
             const actions = [...(currentComponent?.userCustomConfigEvents?.[curEditAction.eventKey]?.actions ?? [])]
             actions.splice(curEditAction.actionIndex, 1, config)
-            console.log('actions: ', actions);
             updateComponentEvents(currentComponentId, {
                 [curEditAction.eventKey]: {
                     actions: [
@@ -73,7 +71,6 @@ export const ComponentEvent = () => {
     }
 
     const deleteAction = (index: number, eventKey) => {
-        console.log('index: number, actionType: ', index, eventKey);
         const newActions = [...currentComponent?.userCustomConfigEvents?.[eventKey]?.actions ?? []] // 复制actions
         newActions?.splice(index, 1)
         updateComponentEvents(currentComponentId, {
@@ -85,13 +82,11 @@ export const ComponentEvent = () => {
 
     const deleteEvent = (e, eventKey) => {
         e.stopPropagation();
-        console.log(eventKey);
         updateComponentEvents(currentComponentId, {
             [eventKey]: undefined
         })
     }
 
-    console.log(showActionModal);
 
     return (
         <>

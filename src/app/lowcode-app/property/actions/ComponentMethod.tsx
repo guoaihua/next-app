@@ -31,7 +31,6 @@ export function ComponentMethod(props: ComponentMethodProps) {
 
     function componentChange(value: number) {
         if (!currentComponentId) return;
-        console.log('findComponentById(value): ', findComponentById(value));
 
         setCurId(value);
         setSelectedComponent(findComponentById(value))

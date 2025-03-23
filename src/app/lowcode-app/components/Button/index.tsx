@@ -1,23 +1,8 @@
+import { RunTimeButton } from './RunTimeButton'
+import { EditButton as _editButton } from './EditButton'
+import config from './config'
 
-import { CSSProperties } from "react"
-import { Button as AntButton } from "antd";
-export const Button = (props: {
-  id: number;
-  styles: CSSProperties;
-  text: string;
-  name: string;
-}) => {
-  const { text, name, id, styles, ...resetProps } = props ?? {};
-  console.log("resetProps: ", resetProps);
-  return (
-    <AntButton
-      {...resetProps}
-      style={styles}
-      data-component-id={id}
-      className="Button"
-    >
-      {text ?? name}
-    </AntButton>
-  );
-};
-
+export const EditButton = {
+  ...config,
+  component: _editButton,
+}

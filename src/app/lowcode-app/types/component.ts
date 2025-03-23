@@ -1,5 +1,4 @@
 import { CSSProperties } from "react"
-
 export interface Component {
   /** 组件类型 */
   type: string
@@ -11,3 +10,9 @@ export interface Component {
   userCustomConfigStyles?: CSSProperties
   userCustomConfigEvents?: Record<string, any>
 }
+
+export interface ComponentsBase {
+  styles?: CSSProperties
+  id?: number
+}
+

@@ -2,7 +2,6 @@ import MonacoEditor, { OnMount, EditorProps } from '@monaco-editor/react'
 import { useState } from 'react'
 export const CustomJs = (props: { onChange: (config: any) => void, defaultValue?: string})=> {
     const { onChange, defaultValue } = props
-    console.log('defaultValue: ', defaultValue);
     const [value, setValue] = useState(defaultValue)
     
     const handleEditorMount: OnMount = (editor, monaco) => {
@@ -11,8 +10,7 @@ export const CustomJs = (props: { onChange: (config: any) => void, defaultValue?
         });
     }
 
-    const handleChange = (value)=>{
-        console.log('value: ', value);
+    const handleChange = (value) => {
         setValue(value)
         onChange({
             type: 'customJs',

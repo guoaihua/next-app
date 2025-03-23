@@ -13,6 +13,7 @@ import {
 import { OutlineTree } from "./OutlineTree";
 import { SourceCode } from "./SourceCode";
 
+
 enum MaterialsEnum {
   COMPONENT,
   OUTLINE,
@@ -41,7 +42,6 @@ const Materials = () => {
     return Object.keys(componentsMap)?.filter((v) => v !== "page");
   }, [componentsMap]);
 
-  console.log("materials: ", materials);
 
   return (
     <div className="flex h-full gap-1">

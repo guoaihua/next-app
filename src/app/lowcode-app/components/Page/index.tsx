@@ -1,14 +1,11 @@
+
+
 "use client"
+import config from './config'
+import { EditPage as _editPage } from './EditPage'
 
-import { CSSProperties, PropsWithChildren } from "react"
-import { useApplyDrop } from "@/app/lowcode-app/hooks/useApplyDrop"
-
-export const Page = (props: PropsWithChildren<{ id: number, styles: CSSProperties }>) => {
-    const { id, styles, ...resetProps } = props
-    const { ref } = useApplyDrop({ accept: ['button', 'container', 'modal'], id })
-
-    return (
-        <div {...resetProps} style={styles} data-component-id={id} className="page w-full h-full" ref={ref}>{props?.children}</div>
-    )
+export const EditPage = {
+    ...config,
+    component: _editPage,
 }
 
