@@ -1,13 +1,9 @@
 
 import { CSSProperties } from "react"
 import RunTimeText from './RunTimeText'
-export const EditText = (props: {
-    id: number;
-    styles: CSSProperties;
-    text: string;
-    name: string;
-}) => {
+export const EditText = (props) => {
+    const { id } = props;
     return (
-        <div><RunTimeText {...props} /></div>
+        <div data-component-id={id}><RunTimeText {...props} /></div>
     );
 };

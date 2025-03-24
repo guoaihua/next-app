@@ -19,7 +19,7 @@ export function Header() {
                                     setMode('preview');
                                     setCurrentComponent();
                                 }}
-                                type='primary'
+                                type='dashed'
                             >
                                 预览
                             </Button>
@@ -32,7 +32,7 @@ export function Header() {
                                     console.log(config)
                                     localStorage.setItem('lowcode-version', config)
                                 }}
-                                type='primary'
+                                type='dashed'
                             >
                                 发布版本
                             </Button>

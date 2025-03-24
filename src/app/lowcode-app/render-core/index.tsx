@@ -26,13 +26,14 @@ const RenderPage = (props) => {
                             // 为执行上下文，绑定了2个参数
                             // args[0] 为当前函数的返回值
                             // component 为当前组件实例
-                            // flushCompoent用于刷新组件运行时状态
+                            // flushRuntime 为刷新运行时上下文
                             const func = new Function(code).bind({
-                                args: args, component,
-                                flushComponent: (component) => setComponents(draft => {
+                                args: args,
+                                component,
+                                flushRuntime: (_runTimeContext) => setComponents(draft => {
                                     let temp = getElementById(draft, component.id)
-                                    console.log(temp, JSON.stringify(temp))
-                                    temp.userCustomConfigProps = component.userCustomConfigProps
+                                    console.log("_runTimeContext", _runTimeContext, component.id)
+                                    temp._runTimeContext = _runTimeContext
                                 })
                             })
                             func()
@@ -60,12 +61,13 @@ const RenderPage = (props) => {
 
         return components.map(component => {
             const configComponent = componentsMap[component.type]
-            console.log('组件渲染', configComponent)
+            console.log('组件渲染', configComponent, component)
             return createElement(configComponent.component, {
                 key: component.id,
                 ref: configComponent.component?.$$typeof === Symbol.for('react.forward_ref') ? (ref: Record<string, any>) => { componentRefs.current[component.id] = ref; } : undefined,
                 styles: component.userCustomConfigStyles,
                 name: configComponent.name,
+                _runTimeContext: component._runTimeContext, // 组件运行时上下文
                 ...configComponent.defaultProps,
                 ...component.userCustomConfigProps,
                 ...handleEvents(component)

@@ -57,7 +57,7 @@ const Editor = () => {
     }
 
     return (
-        <div className='w-full h-full editor-container border relative overflow-y-auto p-5' onMouseOver={handleHover} onMouseLeave={handleMouseLeave} onClick={handleClick}>
+        <div className='w-full h-full editor-container  relative overflow-y-auto p-5' onMouseOver={handleHover} onMouseLeave={handleMouseLeave} onClick={handleClick}>
             <div className='hover-wrapper'></div>
             {currentComponentId ? <ClickMask containerClassName='editor-container' wrapperClassName='hover-wrapper' curContainerId={currentComponentId} currentComponent={currentComponent} /> : null}
             {curHoverComponentId && currentComponentId !== curHoverComponentId && <HoverMask containerClassName='editor-container' wrapperClassName='hover-wrapper' curContainerId={curHoverComponentId} />}

@@ -1,13 +1,14 @@
 
 import { CSSProperties, PropsWithChildren } from "react"
 import config from './config'
+import { useResolveProps } from '@lowcode/hooks/useResolveProps'
 
 
 const RunTimePage = (props: PropsWithChildren<{ id: number, styles: CSSProperties }>) => {
-    const { id, styles, ...resetProps } = props
+    const { styles, resetProps } = useResolveProps(props)
 
     return (
-        <div {...resetProps} style={styles} data-component-id={id} className="page w-full h-full" >{props?.children}</div>
+        <div {...resetProps} style={styles} className="page w-full h-full" >{props?.children}</div>
     )
 }
 

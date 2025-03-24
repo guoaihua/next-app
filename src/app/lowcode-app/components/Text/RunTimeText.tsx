@@ -1,12 +1,12 @@
 
 import { CSSProperties } from "react"
-import { Switch, Typography } from 'antd';
+import { Typography } from 'antd';
 
 const { Text: AntdText, Title } = Typography;
 import config from './config'
 
 const RunTimeText = (props: {
-    id: number;
+    key: number;
     styles: CSSProperties;
     text: string;
     name: string;
@@ -16,17 +16,17 @@ const RunTimeText = (props: {
     level?: 1 | 2 | 3 | 4 | 5
     textAlign?: any
 }) => {
-    const { text, name, id, styles, ellipsis, rows, isInline, level, textAlign, ...resetProps } = props ?? {};
+    const { text, name, styles, ellipsis, rows, isInline, level, textAlign, ...resetProps } = props ?? {};
 
     const renderText = (chldren) => {
         if (level >= 1) {
-            return <Title style={{ ...styles, textAlign }} data-component-id={id} ellipsis={rows ? { rows: rows, } : null} {...resetProps} level={level}>{chldren}</Title>
+            return <Title style={{ ...styles, textAlign }} ellipsis={rows ? { rows: rows, } : null} {...resetProps} level={level}>{chldren}</Title>
         } else {
             return (
                 <AntdText
                     {...resetProps}
                     style={{ ...styles, display: isInline ? 'inline-block' : 'block', textAlign }}
-                    data-component-id={id}
+
                     ellipsis
                 >
                     {chldren ?? name}

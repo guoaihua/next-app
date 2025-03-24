@@ -2,14 +2,14 @@
 import { useComponentsStore } from '@/app/lowcode-app/store/components'
 import { useComponentsConfigStore } from '@/app/lowcode-app/store/components-configs';
 import { useEffect, useMemo } from 'react';
-import { Button, Form, Input, Select, Switch } from "antd";
+import { Button, Card, Form, Input, Select, Switch } from "antd";
 
 
 const { TextArea } = Input;
 
 const layout = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 19 },
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
 };
 
 
@@ -36,6 +36,8 @@ export const ComponentProperty = ()=>{
 
     useEffect(()=>{
         if(!currentComponent){return}
+        // 清空表单
+        form.resetFields()
         form.setFieldsValue({...currentComponent?.userCustomConfigProps})
     },[currentComponent])
 
@@ -59,7 +61,7 @@ export const ComponentProperty = ()=>{
     }
 
     return (
-        <>
+        <Card title={null}>
             <Form {...layout}
                 form={form}
                 onValuesChange={handleValueChange}
@@ -74,6 +76,6 @@ export const ComponentProperty = ()=>{
                     }) 
              }
             </Form>
-        </>
+        </Card>
     )
 }

@@ -7,7 +7,7 @@ export const EditPage = (props: PropsWithChildren<{ id: number, styles: CSSPrope
     const { ref } = useApplyDrop({ accept: ['button', 'container', 'modal', 'text', 'card', 'search'], id })
 
     return (
-        <div ref={ref} className="page w-full h-full">
+        <div ref={ref} data-component-id={id} className="page w-full h-full">
             <RunTimePage {...props} />
         </div>
     )

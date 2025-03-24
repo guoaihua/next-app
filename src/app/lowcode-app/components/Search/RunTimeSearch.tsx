@@ -3,12 +3,22 @@ import { PropsWithChildren } from "react"
 import { ComponentsBase } from '@lowcode/types/component'
 import config from './config'
 import { Select } from 'antd'
+import { useResolveProps } from '@lowcode/hooks/useResolveProps'
+
+
+const resolveRuntimeContext = (_runTimeContext: any) => {
+    let options = []
+    if (_runTimeContext) {
+        options = _runTimeContext?.options
+    }
+    return { options }
+}
 
 const RunTimeSearch = (props: { id: number, width: number, options: { value: string, label: string }[] } & ComponentsBase) => {
-    const { id, styles, width, options, ...resetProps } = props
-    console.log("options", options)
+    const { styles, width, options, _runTimeContext, resetProps } = useResolveProps(props)
+    const { options: _options } = resolveRuntimeContext(_runTimeContext)
     return (
-        <Select options={options} style={{ width, ...styles }} data-component-id={id} showSearch {...resetProps}></Select>
+        <Select options={_options || options} style={{ width, ...styles }} showSearch {...resetProps}></Select>
     )
 }
 

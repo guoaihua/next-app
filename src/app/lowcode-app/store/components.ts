@@ -35,7 +35,8 @@ export const useComponentsStore = create<State&Actions>((set, get) => ({
             id: createId(),
             children: [],
             userCustomConfigProps: {},
-            userCustomConfigStyles: {}
+            userCustomConfigStyles: {},
+            _runTimeContext: {}
         }
     ],
     mode: 'edit',

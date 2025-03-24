@@ -1,7 +1,9 @@
 "use client"
-import { Allotment } from "allotment";
-import "allotment/dist/style.css";
 import './App.css'
+import "allotment/dist/style.css";
+
+import { Allotment } from "allotment";
+
 import Materials from "@/app/lowcode-app/materials/index"
 import Editor from "@/app/lowcode-app/editor/index";
 import Property from "@/app/lowcode-app/property/index";
@@ -23,13 +25,13 @@ function App() {
       {
         mode === 'edit' ? (
           <Allotment>
-            <Allotment.Pane minSize={200}>
+            <Allotment.Pane minSize={250} preferredSize={346}>
               <Materials />
             </Allotment.Pane>
             <Allotment.Pane minSize={200}>
               <Editor />
             </Allotment.Pane>
-            <Allotment.Pane minSize={300}>
+            <Allotment.Pane minSize={300} maxSize={500}>
               <Property />
             </Allotment.Pane>
           </Allotment>

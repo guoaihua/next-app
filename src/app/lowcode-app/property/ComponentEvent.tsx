@@ -89,7 +89,7 @@ export const ComponentEvent = () => {
 
 
     return (
-        <>
+        <Card>
             {/* <Collapse className='mb-[10px]' items={currentConfigEvents?.map(v=> {
             return ({
                 key:v.name,
@@ -207,6 +207,6 @@ export const ComponentEvent = () => {
 
         </div>
 
-        </>
+        </Card>
     )
 }

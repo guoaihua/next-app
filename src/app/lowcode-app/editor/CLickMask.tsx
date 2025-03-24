@@ -95,7 +95,7 @@ export const ClickMask = (props: ClickMaskProps)=> {
                 pointerEvents: 'none', // 防止遮罩层被点击
                 zIndex: -1,
                 boxSizing: 'border-box',
-                border: '2px solid #326adf'
+                border: '1px solid #326adf'
             }} />
 
             <div style={{

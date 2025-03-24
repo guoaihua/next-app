@@ -1,5 +1,6 @@
 import { useDrag } from 'react-dnd'
 import classNames from "classnames";
+import { AlignCenterOutlined } from '@ant-design/icons';
 const MaterialItem = (props: {component: any}) => {
     const {component} = props
 
@@ -16,6 +17,7 @@ const MaterialItem = (props: {component: any}) => {
     
     return (
         <div className={classNames('border-solid border border-indigo-200 px-2 py-1 rounded-sm cursor-pointer', { 'bg-amber-200': isDragging })} ref={drag as any}>
+            <AlignCenterOutlined className='mr-1.5' /> 
             {component?.name}
         </div>
     )

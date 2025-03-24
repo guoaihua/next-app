@@ -15,12 +15,14 @@ const layout = {
   wrapperCol: { span: 20 },
 };
 
+const CSS_INIT_CODE = `.comp{\n\n}`
+
 export const ComponentStyle = () => {
   const { currentComponentId, currentComponent, updataComponentStyles } =
     useComponentsStore();
   const { componentsMap } = useComponentsConfigStore();
   const [form] = Form.useForm();
-  const [css, setCss] = useState(`.comp{\n\n}`);
+  const [css, setCss] = useState(CSS_INIT_CODE);
 
   const renderForm = ({ type, props }: { type: string; props: any }) => {
     switch (type) {
@@ -38,6 +40,7 @@ export const ComponentStyle = () => {
       return;
     }
     form.resetFields();
+    setCss(CSS_INIT_CODE)
 
     if (currentComponent?.userCustomConfigStyles) {
       form.setFieldsValue({ ...currentComponent?.userCustomConfigStyles });
@@ -46,8 +49,7 @@ export const ComponentStyle = () => {
   }, [currentComponent]);
 
   function toCSSStr(css: Record<string, any>) {
-    let str = `.comp {\n
-`;
+    let str = `.comp {\n`;
 
     Object.keys(css)?.forEach((item) => {
       let resolveValue = css[item];
@@ -102,7 +104,7 @@ export const ComponentStyle = () => {
   }, 500);
   return (
     <>
-      <Form {...layout} form={form} onValuesChange={handleValueChange}>
+      <Form {...layout} form={form} style={{ marginTop: 4 }} onValuesChange={handleValueChange}>
         {stylesSetter?.map((v) => {
           return (
             <Form.Item

@@ -9,10 +9,13 @@ export interface Component {
   userCustomConfigProps?: Record<string, any>
   userCustomConfigStyles?: CSSProperties
   userCustomConfigEvents?: Record<string, any>
+  /** 运行时的上下文, 与组件相关联需要动态设置的状态 */
+  _runTimeContext?: Record<string, any>
 }
 
 export interface ComponentsBase {
   styles?: CSSProperties
   id?: number
+  _runTimeContext?: Record<string, any>
 }
 
