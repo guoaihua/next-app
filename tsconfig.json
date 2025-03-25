@@ -29,7 +29,10 @@
       ],
       "@lowcode/*": [
         "src/app/lowcode-app/*"
-      ] 
+      ],
+      "@render-core/*": [
+        "src/render-core/*"
+      ]
     },
     "strict": false
   },

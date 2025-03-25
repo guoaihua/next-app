@@ -20,7 +20,7 @@ export default {
             name: 'text',
             label: '文本',
             type: 'input'
-        }
+        },
     ],
     stylesSetter: [
         {

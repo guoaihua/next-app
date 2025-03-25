@@ -22,6 +22,8 @@ type Actions = {
     findComponentById: (id: number) => Component | undefined
     findFatherComponents: (component: Component, res?: Component[]) => Component[]
     setMode: (mode: string) => void
+    insertGloableStateToTopComponent: (obj: object) => void
+    getGloableStateFromTopComponent: () => object
 }
 
 /**
@@ -103,6 +105,22 @@ export const useComponentsStore = create<State&Actions>((set, get) => ({
             return res
         }
 
+    },
+    insertGloableStateToTopComponent: (obj: object) => {
+        const components = get()?.components
+        const top = components[0]
+        top._runTimeContext = {
+            globalState: {
+                ...top._runTimeContext?.globalState,
+                ...obj
+            }
+        }
+        set({ components: [...components] })
+    },
+    getGloableStateFromTopComponent: () => {
+        const components = get()?.components
+        const top = components[0]
+        return top._runTimeContext?.globalState
     }
 }))
 

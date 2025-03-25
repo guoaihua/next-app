@@ -10,6 +10,11 @@ export default {
             type: 'textarea',
         },
         {
+            name: 'dynamicText',
+            label: '动态插值',
+            type: 'input',
+        },
+        {
             name: 'textAlign',
             label: '居中方式',
             type: 'select',

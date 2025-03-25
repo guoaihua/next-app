@@ -11,7 +11,7 @@ import { Header } from '@/app/lowcode-app/editor/Header'
 import { useComponentsStore } from "@/app/lowcode-app/store/components";
 import { useComponentsConfigStore } from "@/app/lowcode-app/store/components-configs";
 
-import RenderPage from "./render-core";
+import RenderPage from "../../render-core";
 
 function App() {
 

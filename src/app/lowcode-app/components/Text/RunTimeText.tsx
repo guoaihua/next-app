@@ -15,8 +15,13 @@ const RunTimeText = (props: {
     rows?: number;
     level?: 1 | 2 | 3 | 4 | 5
     textAlign?: any
+    dynamicText?: any
+    _runTimeContext?: any
 }) => {
-    const { text, name, styles, ellipsis, rows, isInline, level, textAlign, ...resetProps } = props ?? {};
+    const { text, dynamicText, _runTimeContext, name, styles, ellipsis, rows, isInline, level, textAlign, ...resetProps
+    } = props ?? {};
+
+    console.log('RunTimeText props', dynamicText)
 
     const renderText = (chldren) => {
         if (level >= 1) {
@@ -35,7 +40,7 @@ const RunTimeText = (props: {
         }
     }
 
-    return renderText(text)
+    return renderText(dynamicText ?? text)
 };
 
 export const Text = {

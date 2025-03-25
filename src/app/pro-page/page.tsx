@@ -1,5 +1,5 @@
 "use client"
-import RenderPage from "@lowcode/render-core";
+import RenderPage from "@/render-core";
 import { useComponentsConfigStore } from "@/app/lowcode-app/store/components-for-render";
 import { useEffect, useState } from "react";
 

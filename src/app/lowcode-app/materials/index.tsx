@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { Segmented } from "antd";
+import { Segmented, Splitter } from "antd";
 import {
   AppstoreOutlined,
   PartitionOutlined,
