@@ -15,3 +15,13 @@ export const getElementById = (components: Component[], id: number): Component |
         }
     }
 }
+
+// 执行js脚本代码
+export const createSafeFunction = (code) => {
+    try {
+        return new Function('return ' + code)();
+    } catch (e) {
+        console.error('代码解析错误:', e);
+        return null;
+    }
+};

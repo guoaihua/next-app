@@ -22,6 +22,7 @@ function App() {
       <div className='h-[60px] flex items-center border-b-[1px] border-[#e8e9eb]'>
         <Header />
       </div>
+      <div className='h-[calc(100%-60px)]'>
       {
         mode === 'edit' ? (
           <Allotment>
@@ -39,7 +40,7 @@ function App() {
             <RenderPage components={components} componentsMap={componentsMap} />
         )
       }
-
+      </div>
     </>
   )
 }
