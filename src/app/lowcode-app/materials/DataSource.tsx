@@ -1,11 +1,15 @@
 import { Button, Input, Popconfirm, Form, Collapse } from "antd";
 import { useComponentsStore } from "@lowcode/store/components"
-import Editor from '@monaco-editor/react'
+import Editor,{loader} from '@monaco-editor/react'
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import type { CollapseProps } from 'antd';
 import { createSafeFunction } from "@lowcode/libs/tools"
 import { useMemo } from "react";
 import { Typography } from 'antd';
+import * as monaco from 'monaco-editor'
+
+
+loader.config({ monaco })
 
 const { Paragraph, Text } = Typography;
 
