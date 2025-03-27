@@ -3,7 +3,7 @@ import { useComponentsStore } from "@lowcode/store/components"
 import { loader } from '@monaco-editor/react'
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import type { CollapseProps } from 'antd';
-import { createSafeFunction } from "@lowcode/libs/tools"
+import { createSafeFunction, getMonacoPublicPath } from "@lowcode/libs/tools"
 import { useMemo } from "react";
 import { Typography } from 'antd';
 import dynamic from 'next/dynamic';
@@ -17,7 +17,7 @@ const Editor = dynamic(
 // 配置本地路径
 loader.config({
     paths: {
-        vs: `/monaco-editor/vs`, // 对应 public/monaco-editor/vs
+        vs: getMonacoPublicPath() + 'vs'
     },
 });
 

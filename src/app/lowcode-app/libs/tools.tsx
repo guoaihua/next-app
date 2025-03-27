@@ -25,3 +25,12 @@ export const createSafeFunction = (code) => {
         return null;
     }
 };
+
+
+// lib/monaco-path.ts
+export const getMonacoPublicPath = () => {
+    if (typeof window === 'undefined') return '';
+    const isProd = process.env.NODE_ENV === 'production';
+    const base = isProd ? window.location.origin + '/lowcode' : '';
+    return `${base}/_next/static/chunks/monaco/`;
+};
