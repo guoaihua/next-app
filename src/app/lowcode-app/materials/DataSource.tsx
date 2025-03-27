@@ -1,15 +1,30 @@
 import { Button, Input, Popconfirm, Form, Collapse } from "antd";
 import { useComponentsStore } from "@lowcode/store/components"
-import Editor,{loader} from '@monaco-editor/react'
+import { loader } from '@monaco-editor/react'
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import type { CollapseProps } from 'antd';
 import { createSafeFunction } from "@lowcode/libs/tools"
 import { useMemo } from "react";
 import { Typography } from 'antd';
-import * as monaco from 'monaco-editor'
+import dynamic from 'next/dynamic';
 
 
-loader.config({ monaco })
+// 动态加载编辑器（禁用 SSR）
+const Editor = dynamic(
+    () => import('@monaco-editor/react').then(mod => mod.default),
+    { ssr: false }
+);
+
+const isDev = process.env.NODE_ENV === 'development';
+const basePath = isDev ? '' : '/lowcode';
+console.log('basePath', `${basePath}/monaco-editor/vs`)
+
+// 配置本地路径
+loader.config({
+    paths: {
+        vs: `${basePath}/monaco-editor/vs`, // 对应 public/monaco-editor/vs
+    },
+});
 
 const { Paragraph, Text } = Typography;
 
@@ -39,7 +54,7 @@ const DataSource = () => {
                 <Editor
                     value={value}
                     onChange={onChange}
-                    height='230px'
+                    height='200px'
                     width={'100%'}
                     defaultLanguage='json'
                     options={
@@ -86,7 +101,7 @@ const DataSource = () => {
                 <div className="flex justify-between">
                     <span>全局变量</span>
                     <Popconfirm
-                        title={<span className=" text-xl font-bold">创建全局变量</span>}
+                        title={<span className="text-[18px] font-medium">创建全局变量</span>}
                         description={CodeEditorWrapper}
                         onConfirm={handleOk}
                         onPopupClick={(e) => {
