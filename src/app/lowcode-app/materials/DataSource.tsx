@@ -14,15 +14,10 @@ const Editor = dynamic(
     () => import('@monaco-editor/react').then(mod => mod.default),
     { ssr: false }
 );
-
-const isDev = process.env.NODE_ENV === 'development';
-const basePath = isDev ? '' : '/lowcode';
-console.log('basePath', `${basePath}/monaco-editor/vs`)
-
 // 配置本地路径
 loader.config({
     paths: {
-        vs: `${basePath}/monaco-editor/vs`, // 对应 public/monaco-editor/vs
+        vs: `/monaco-editor/vs`, // 对应 public/monaco-editor/vs
     },
 });
 

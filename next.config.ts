@@ -7,8 +7,8 @@ const isDev = process.env.NODE_ENV === 'development'
 const nextConfig: NextConfig = {
   /* config options here */
   output: "standalone",
-  basePath: isDev ? undefined : '/lowcode',
-  // assetPrefix: isDev ? undefined : 'https://ziming.online/lowcode'
+  // basePath: isDev ? undefined : '/lowcode',
+  assetPrefix: isDev ? undefined : 'https://ziming.online/lowcode'
   // webpack: (config, { isServer }) => {
   //   console.log('isServer', isServer)
   //   // 仅在客户端构建时复制 Monaco 资源
