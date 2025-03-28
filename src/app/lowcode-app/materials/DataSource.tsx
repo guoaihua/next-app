@@ -1,25 +1,15 @@
 import { Button, Input, Popconfirm, Form, Collapse } from "antd";
 import { useComponentsStore } from "@lowcode/store/components"
-import { loader } from '@monaco-editor/react'
+import Editor, { loader } from '@monaco-editor/react'
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import type { CollapseProps } from 'antd';
 import { createSafeFunction } from "@lowcode/libs/tools"
 import { useMemo } from "react";
 import { Typography } from 'antd';
-import dynamic from 'next/dynamic';
 
+const base = process.env.NODE_ENV === 'development' ? '' : '/lowcode';
 
-// 动态加载编辑器（禁用 SSR）
-const Editor = dynamic(
-    () => import('@monaco-editor/react').then(mod => mod.default),
-    { ssr: false }
-);
-// 配置本地路径
-loader.config({
-    paths: {
-        vs: `/monaco-editor/vs`, // 对应 public/monaco-editor/vs
-    },
-});
+loader.config({ paths: { vs: `${base}/min/vs` } });
 
 const { Paragraph, Text } = Typography;
 
