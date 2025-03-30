@@ -1,30 +1,38 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
+import { useGlobalStore } from "../stores/globalStore";
 
+const RuntimeContext = createContext({
+  global: {},
+  resolvePath: (path: string) => null,
+});
 
-const ParentDataContext = createContext({
-    data: {},
-    setData: (...args: any) => { }
-})
+export const RuntimeProvider = ({ children }) => {
+  const global = useGlobalStore();
+  const componentTree = {}; // 维护组件树结构
 
+  const resolvePath = useCallback(
+    (path: string) => {
+      const [scope, ...segments] = path.split(".");
 
-export const ParentDataProvider = ({ children }) => {
-    const [data, setData] = useState<Record<string, any>>({});
+      if (scope === "global") {
+        return segments.reduce((acc, key) => acc?.[key], global);
+      }
 
-    const contextValue = {
-        data,
-        setData: (path: string, value: any) => {
-            setData(prev => ({
-                ...prev,
-                [path]: value
-            }));
-        }
-    };
+      if (scope === "father") {
+        // const currentComponent = componentTree.current;
+        // return componentTree.getFatherData(currentComponent.id, segments);
+      }
 
-    return (
-        <ParentDataContext.Provider value={contextValue}>
-            {children}
-        </ParentDataContext.Provider>
-    );
+      return undefined;
+    },
+    [global, componentTree],
+  );
+
+  return (
+    <RuntimeContext.Provider value={{ global, resolvePath }}>
+      {children}
+    </RuntimeContext.Provider>
+  );
 };
 
-export const useParentData = () => useContext(ParentDataContext);
+export const useParentData = () => useContext(RuntimeContext);

@@ -3,53 +3,7 @@ import { useImmer } from "use-immer";
 import { Component } from "@/app/lowcode-app/types/component";
 import { getElementById } from "@lowcode/libs/tools";
 import { useGlobalStore } from "@render-core/stores/globalStore";
-import { ParentDataProvider } from "@render-core/contexts/ParentDataContext";
-
-const GlobalContextWrapper = ({ children }: { children: React.ReactNode }) => {
-  const globalStore = useGlobalStore();
-  return <ParentDataProvider>{children}</ParentDataProvider>;
-};
-
-type DataSources = {
-  father?: Record<string, any>;
-  global: Record<string, any>;
-};
-
-const a = 1;
-
-const parseExpression = (expr: string, context: DataSources) => {
-  const pattern = /\$(father|global)\.([\w.]+)/g;
-  return expr.replace(pattern, (_, type, path) => {
-    const dataSource = type === "father" ? context.father : context.global;
-    // path a.b
-    return path.split(".").reduce((acc, key) => acc?.[key], dataSource);
-  });
-};
-
-// 动态属性解析器
-const resolveDynamicProps = (props: Record<string, any>) => {
-  const globalStore = useGlobalStore.getState()?.state;
-  if (!props || !globalStore) {
-    return;
-  }
-  const obj = Object.entries(props).reduce(
-    (acc, [key, value]) => {
-      if (typeof value === "string" && value.includes("$")) {
-        acc[key] = parseExpression(value, {
-          global: globalStore,
-        });
-      } else {
-        acc[key] = value;
-      }
-      return acc;
-    },
-    {} as Record<string, any>,
-  );
-
-  console.log("动态解析后的props", obj);
-
-  return obj;
-};
+import { resolveDynamicProps } from "@/render-core/libs/parsePath";
 
 const RenderPage = (props) => {
   const { componentsMap } = props;
@@ -60,8 +14,10 @@ const RenderPage = (props) => {
   const { setGlobalData } = useGlobalStore();
 
   useEffect(() => {
-    setGlobalData(components[0]._runTimeContext?.globalState);
-  }, []);
+    // const a = castDraft(components)
+    // console.log("a", a);
+    setGlobalData(components);
+  }, [components]);
 
   const handleEvents = (component: Component) => {
     const props: Record<string, any> = {}; // 收集与事件相关的props，最终传递给createElement方法中的props: { 'onClick': f() }
@@ -122,6 +78,7 @@ const RenderPage = (props) => {
 
       const resolvedProps = resolveDynamicProps(
         component.userCustomConfigProps,
+        component,
       );
 
       console.log("动态解析后的props", resolvedProps);
@@ -150,9 +107,7 @@ const RenderPage = (props) => {
     });
   };
 
-  return (
-    <GlobalContextWrapper>{renderComponent(components)}</GlobalContextWrapper>
-  );
+  return renderComponent(components);
 };
 
 export default RenderPage;
