@@ -6,6 +6,8 @@ import { Component } from "@/app/lowcode-app/types/component";
 import { createId } from "@/app/lowcode-app/libs/uid";
 import pick from "lodash-es/pick";
 
+export let currentData;
+export let STORAGE_KEY = "components-storage";
 type State = {
   components: Component[];
   currentComponent: Component | undefined;
@@ -30,11 +32,29 @@ type Actions = {
   getGloableStateFromComponent: () => object;
 };
 
+export const storage = {
+  getItem: async (name: string): Promise<string | null> => {
+    console.log(name, "has been retrieved", window.localStorage.getItem(name));
+    const Data = window.localStorage.getItem(name) || null;
+    currentData = Data;
+    return Data;
+  },
+  setItem: async (name: string, value: string): Promise<void> => {
+    console.log(name, "with value", value, "has been saved");
+    currentData = value;
+    return window.localStorage.setItem(name, value);
+  },
+  removeItem: async (name: string): Promise<void> => {
+    console.log(name, "has been deleted");
+    window.localStorage.removeItem(name);
+  },
+};
+
 /**
  * 当前实际添加的components
  */
-export const useComponentsStore = create(
-  persist<State & Actions>(
+export const useComponentsStore = create<State & Actions>()(
+  persist(
     (set, get) => ({
       components: [
         {
@@ -161,14 +181,11 @@ export const useComponentsStore = create(
       },
     }),
     {
-      name: "components-storage", // 存储中的项目名称（必须唯一）
-      storage: createJSONStorage(() => localStorage), // (可选) 默认情况下，使用 'localStorage'
+      name: STORAGE_KEY, // 存储中的项目名称（必须唯一）
+      storage: createJSONStorage(() => storage), // (可选) 默认情况下，使用 'localStorage'
       partialize: (state) =>
         Object.fromEntries(
-          Object.entries(state).filter(
-            ([key]) =>
-              !["currentComponentId", "currentComponent"].includes(key),
-          ),
+          Object.entries(state).filter(([key]) => ["components"].includes(key)),
         ) as any,
     },
   ),
