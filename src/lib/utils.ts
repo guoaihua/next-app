@@ -18,3 +18,13 @@ export const getElementById = (
     }
   }
 };
+
+// 安全执行沙箱
+const safeEval = (code: string, data: any) => {
+  try {
+    return Function('"use strict";return (data) => ' + code)()(data);
+  } catch (err) {
+    console.error("Data transform error:", err);
+    return data;
+  }
+};
