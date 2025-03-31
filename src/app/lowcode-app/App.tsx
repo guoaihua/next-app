@@ -10,22 +10,22 @@ import Property from "@/app/lowcode-app/property/index";
 import { Header } from "@/app/lowcode-app/editor/Header";
 import { useComponentsStore } from "@/app/lowcode-app/store/components";
 import { useComponentsConfigStore } from "@/app/lowcode-app/store/components-configs";
-import { Button, Drawer } from "antd";
 import RenderPage from "../../render-core";
 import { useEffect, useState } from "react";
-import { autoSave, fetchData, changeVersion } from "@lowcode/store/auto-save";
+import { autoSave } from "@lowcode/store/auto-save";
+import HistoryVersion from "@lowcode/common/HistoryVersion";
+import { Modal } from "antd";
 
 function App() {
   const { mode, components } = useComponentsStore();
   const { componentsMap } = useComponentsConfigStore();
-  const [versionData, setVersionData] = useState([]);
   const [showDrawer, setShowDrawer] = useState(false);
 
   useEffect(() => {
-    console.log(" use effect");
-    autoSave();
-    const versionData = fetchData();
-    setVersionData(versionData);
+    const clearFunc = autoSave();
+    return () => {
+      clearFunc();
+    };
   }, []);
 
   return (
@@ -49,34 +49,7 @@ function App() {
         ) : (
           <RenderPage components={components} componentsMap={componentsMap} />
         )}
-        <Drawer
-          title="历史版本"
-          onClose={() => setShowDrawer(false)}
-          open={showDrawer}
-        >
-          {versionData?.map((item) => {
-            return (
-              <p
-                key={item.version}
-                onClick={() => {
-                  setShowDrawer(false);
-                }}
-              >
-                版本：{item.version} 最后保存时间：{item.timeStamp}
-                <Button
-                  type="primary"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.nativeEvent.stopImmediatePropagation;
-                    changeVersion(item.data);
-                  }}
-                >
-                  使用此版本
-                </Button>
-              </p>
-            );
-          })}
-        </Drawer>
+        <HistoryVersion showDrawer={showDrawer} setShowDrawer={setShowDrawer} />
       </div>
     </>
   );

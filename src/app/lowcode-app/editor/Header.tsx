@@ -3,6 +3,7 @@
 import { Button, Space } from "antd";
 import { useComponentsStore } from "@/app/lowcode-app/store/components";
 import Link from "next/link";
+import { saveVerison } from "@/app/lowcode-app/store/auto-save";
 export function Header(props: { setShowDrawer: (value: boolean) => void }) {
   const { setShowDrawer } = props;
 
@@ -34,8 +35,17 @@ export function Header(props: { setShowDrawer: (value: boolean) => void }) {
                 }}
                 type="dashed"
               >
-                发布版本
+                发布版本（暂存storage）
               </Button>
+              <Button
+                onClick={() => {
+                  saveVerison({ isManual: true });
+                }}
+                type="dashed"
+              >
+                保存版本
+              </Button>
+
               <Button
                 onClick={() => {
                   setShowDrawer(true);
