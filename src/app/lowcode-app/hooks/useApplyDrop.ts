@@ -22,6 +22,7 @@ export const useApplyDrop = (props: { accept: string[]; id: number }) => {
         if (item.dragType === "move") {
           // 先删除组件，再添加组件
           const component = findComponentById(item.id);
+          console.log("component: ", component);
           deleteComponent(item.id);
 
           addComponent(component, id);

@@ -4,7 +4,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Component } from "@/app/lowcode-app/types/component";
 import { createId } from "@/app/lowcode-app/libs/uid";
-import pick from "lodash-es/pick";
 
 export let currentData;
 export let STORAGE_KEY = "components-storage";
@@ -34,18 +33,15 @@ type Actions = {
 
 export const storage = {
   getItem: async (name: string): Promise<string | null> => {
-    console.log(name, "has been retrieved", window.localStorage.getItem(name));
     const Data = window.localStorage.getItem(name) || null;
     currentData = Data;
     return Data;
   },
   setItem: async (name: string, value: string): Promise<void> => {
-    console.log(name, "with value", value, "has been saved");
     currentData = value;
     return window.localStorage.setItem(name, value);
   },
   removeItem: async (name: string): Promise<void> => {
-    console.log(name, "has been deleted");
     window.localStorage.removeItem(name);
   },
 };
@@ -85,7 +81,7 @@ export const useComponentsStore = create<State & Actions>()(
         const components = get()?.components;
         const parent = getElementById(components, parentId);
         const obj = {
-          ...pick(newComponent, ["type", "name", "defaultProps", "children"]),
+          ...newComponent,
           parentId: parent?.id,
         };
         if (parent) {
