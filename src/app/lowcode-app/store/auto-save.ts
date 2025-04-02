@@ -8,7 +8,6 @@ export const saveVerison = ({ isManual }: { isManual?: boolean } = {}) => {
   // 临时的key
   const tempKey = `ziming_temp`;
   const storageData = JSON.parse(localStorage.getItem(tempKey)) || [];
-  console.log(storageData, Array.isArray(storageData));
   const lastStorageData = storageData[0];
   console.log(
     "开始对比，是否相同",

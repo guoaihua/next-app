@@ -4,7 +4,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { Component } from "@/app/lowcode-app/types/component";
 import { createId } from "@/app/lowcode-app/libs/uid";
-import pick from "lodash-es/pick";
 
 export let currentData;
 export let STORAGE_KEY = "components-storage";
@@ -17,6 +16,11 @@ type State = {
 
 type Actions = {
   addComponent: (newComponents: any, parentId: number) => void;
+  insertComponent: (
+    newComponents: any,
+    index: number,
+    parentId: number,
+  ) => void;
   deleteComponent: (id: number) => void;
   updataComponentProps: (id: number, props: Record<string, any>) => void;
   updataComponentStyles: (id: number, styles: Record<string, any>) => void;
@@ -34,18 +38,15 @@ type Actions = {
 
 export const storage = {
   getItem: async (name: string): Promise<string | null> => {
-    console.log(name, "has been retrieved", window.localStorage.getItem(name));
     const Data = window.localStorage.getItem(name) || null;
     currentData = Data;
     return Data;
   },
   setItem: async (name: string, value: string): Promise<void> => {
-    console.log(name, "with value", value, "has been saved");
     currentData = value;
     return window.localStorage.setItem(name, value);
   },
   removeItem: async (name: string): Promise<void> => {
-    console.log(name, "has been deleted");
     window.localStorage.removeItem(name);
   },
 };
@@ -85,7 +86,7 @@ export const useComponentsStore = create<State & Actions>()(
         const components = get()?.components;
         const parent = getElementById(components, parentId);
         const obj = {
-          ...pick(newComponent, ["type", "name", "defaultProps", "children"]),
+          ...newComponent,
           parentId: parent?.id,
         };
         if (parent) {
@@ -99,7 +100,26 @@ export const useComponentsStore = create<State & Actions>()(
           set({ components: [...components, { ...obj, id: createId() }] });
         }
       },
+      insertComponent: (newComponent, index, parentId) => {
+        const components = get()?.components;
+        const parent = getElementById(components, parentId);
+        const obj = {
+          ...newComponent,
+          parentId: parent?.id,
+        };
+        if (parent) {
+          if (parent.children) {
+            parent.children.splice(index, 0, { ...obj, id: createId() });
+          } else {
+            parent.children = [{ ...obj, id: createId() }];
+          }
+          set({ components: [...components] });
+        } else {
+          set({ components: [...components, { ...obj, id: createId() }] });
+        }
+      },
       deleteComponent: (id) => {
+        console.log("id: ", id);
         const components = get()?.components;
         const currentComponent = getElementById(components, id);
         const parent = getElementById(
