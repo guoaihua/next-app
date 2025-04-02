@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { Tree } from "antd";
 import { useComponentsStore } from "@/app/lowcode-app/store/components";
-import type { TreeDataNode, TreeProps } from "antd";
+import type { TreeDataNode } from "antd";
 
 const findNode = (tree: any, key: number) => {
   if (!tree || !key) return;
@@ -35,13 +35,7 @@ const findNodeParent = (tree: any, key: number) => {
 };
 
 export const OutlineTree = () => {
-  const {
-    components,
-    setCurrentComponent,
-    deleteComponent,
-    insertComponent,
-    findComponentById,
-  } = useComponentsStore();
+  const { components, setCurrentComponent } = useComponentsStore();
   const [data, setData] = useState(components);
 
   const onSelect = (selectedKeys: number[]) => {
@@ -74,7 +68,7 @@ export const OutlineTree = () => {
     const dropPosition =
       info.dropPosition - Number(dropPos[dropPos.length - 1]); // the drop position relative to the drop node, inside 0, top -1, bottom 1
 
-    const treeData = [...data];
+    const treeData = data;
 
     // 找到拖拽的节点
     const loop = (
@@ -97,25 +91,18 @@ export const OutlineTree = () => {
       dragObj = item;
     });
 
-    // 删除页面元素
-    deleteComponent(dragKey);
-
     if (!info.dropToGap) {
       // Drop on the content
       loop(treeData, dropKey, (item) => {
         item.children = item.children || [];
         // where to insert. New item was inserted to the start of the array in this example, but can be anywhere
         item.children.unshift(dragObj);
-        console.log("dragObj: ", dragObj, 0, item.id);
-        // 插入到首部
-        insertComponent(dragObj, 0, item.id);
       });
     } else {
       let ar: TreeDataNode[] = [];
       let i: number;
       let parentId;
       loop(treeData, dropKey, (_item, index, arr) => {
-        console.log("_item: ", _item);
         ar = arr;
         i = index;
         parentId = _item.parentId;
@@ -124,11 +111,9 @@ export const OutlineTree = () => {
       if (dropPosition === -1) {
         // Drop on the top of the drop node
         ar.splice(i!, 0, dragObj!);
-        insertComponent(dragObj, i, parentId);
       } else {
         // Drop on the bottom of the drop node
         ar.splice(i! + 1, 0, dragObj!);
-        insertComponent(dragObj, i, parentId);
       }
     }
     setData([...data]);
@@ -144,7 +129,7 @@ export const OutlineTree = () => {
         onSelect={onSelect}
         treeData={treeData}
         defaultExpandAll
-        draggable
+        draggable={{ icon: false }}
         onDrop={onDrop}
       />
     </>

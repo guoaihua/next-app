@@ -5,6 +5,7 @@ import { Text } from "./Text/RunTimeText";
 import { Container } from "./Container/RunTimeContainer";
 import { Card } from "./Card/RunTimeCard";
 import { Search } from "./Search/RunTimeSearch";
+import { Image } from "./Image/RunTimeImage";
 
 export default {
   button: Button,
@@ -14,4 +15,5 @@ export default {
   container: Container,
   card: Card,
   search: Search,
+  image: Image,
 };

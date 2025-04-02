@@ -5,6 +5,7 @@ import { EditText } from "./Text";
 import { EditContainer } from "./Container";
 import { EditCard } from "./Card";
 import { EditSearch } from "./Search";
+import { EditImage } from "./Image";
 export default {
   button: EditButton,
   page: EditPage,
@@ -13,4 +14,5 @@ export default {
   container: EditContainer,
   card: EditCard,
   search: EditSearch,
+  image: EditImage,
 };
