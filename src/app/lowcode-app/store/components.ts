@@ -16,6 +16,11 @@ type State = {
 
 type Actions = {
   addComponent: (newComponents: any, parentId: number) => void;
+  insertComponent: (
+    newComponents: any,
+    index: number,
+    parentId: number,
+  ) => void;
   deleteComponent: (id: number) => void;
   updataComponentProps: (id: number, props: Record<string, any>) => void;
   updataComponentStyles: (id: number, styles: Record<string, any>) => void;
@@ -95,7 +100,26 @@ export const useComponentsStore = create<State & Actions>()(
           set({ components: [...components, { ...obj, id: createId() }] });
         }
       },
+      insertComponent: (newComponent, index, parentId) => {
+        const components = get()?.components;
+        const parent = getElementById(components, parentId);
+        const obj = {
+          ...newComponent,
+          parentId: parent?.id,
+        };
+        if (parent) {
+          if (parent.children) {
+            parent.children.splice(index, 0, { ...obj, id: createId() });
+          } else {
+            parent.children = [{ ...obj, id: createId() }];
+          }
+          set({ components: [...components] });
+        } else {
+          set({ components: [...components, { ...obj, id: createId() }] });
+        }
+      },
       deleteComponent: (id) => {
+        console.log("id: ", id);
         const components = get()?.components;
         const currentComponent = getElementById(components, id);
         const parent = getElementById(
