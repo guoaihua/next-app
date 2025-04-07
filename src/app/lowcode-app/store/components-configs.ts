@@ -2,36 +2,7 @@
 
 import { create } from "zustand";
 import Components from "@/app/lowcode-app/material-components";
-import { Classify } from "@lowcode/types/materials";
-
-export interface ComponentConfig {
-  name: string;
-  type: string;
-  classify?: Classify;
-  component: any;
-  defaultProps?: Record<string, any>;
-  setter?: ComponentSetter[];
-  stylesSetter?: ComponentSetter[];
-  events?: ComponentEvent[];
-  methods?: ComponentMethods[];
-}
-
-export interface ComponentSetter {
-  name: string;
-  label: string;
-  type: string;
-  props?: Record<string, any>;
-}
-
-export interface ComponentEvent {
-  name: string;
-  label: string;
-}
-
-export interface ComponentMethods {
-  name: string;
-  label: string;
-}
+import { ComponentConfig } from "@lowcode/types/materials";
 
 type State = {
   componentsMap: Record<string, ComponentConfig>;

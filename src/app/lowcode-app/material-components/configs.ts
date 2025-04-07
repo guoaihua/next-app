@@ -4,4 +4,6 @@ export const CAN_BE_WRAPPED_LIST = [
   "search",
   "container",
   "image",
+  "table",
+  "tableItem",
 ];

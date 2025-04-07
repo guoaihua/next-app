@@ -1,4 +1,4 @@
-import { Classify } from "@lowcode/types/materials";
+import { Classify, ComponentConfig } from "@lowcode/types/materials";
 
 export default {
   name: "图片",
@@ -11,4 +11,8 @@ export default {
       type: "input",
     },
   ],
-};
+  stylesSetter: [
+    { name: "width", label: "图片宽度", type: "input" },
+    { name: "height", label: "图片高度", type: "input" },
+  ],
+} as Omit<ComponentConfig, "component">;

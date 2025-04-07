@@ -18,8 +18,8 @@ const parseExpression = (expr: string, compoent: Component) => {
 
   // 兼容components还未初始化场景
   if (!components.length) return expr;
-
-  return expr.replace(pattern, (_, type, path) => {
+  let isNeedParse = false;
+  const res = expr.replace(pattern, (_, type, path) => {
     let dataSource;
     try {
       switch (type) {
@@ -39,14 +39,26 @@ const parseExpression = (expr: string, compoent: Component) => {
         default:
           break;
       }
+
       // 超出限制，则返回空字符串
       // return path.split(".").reduce((acc, key) => acc?.[key] || '', dataSource ?? {});
-      return findPath(dataSource, path);
+      const res = findPath(dataSource, path) as any;
+
+      // 如果dataSource是对象，则返回值需要解析
+      if (typeof res === "object") {
+        isNeedParse = true;
+      }
+
+      return typeof res === "object" ? JSON.stringify(res) : res;
     } catch (error) {
       console.error("解析表达式错误", error);
       return "";
     }
   });
+
+  console.log("解析表达式", expr, res);
+
+  return isNeedParse ? JSON.parse(res) : res;
 };
 
 // 动态属性解析器

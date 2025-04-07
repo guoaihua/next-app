@@ -1,4 +1,3 @@
-import { RunTimeImage } from "./RunTimeImage";
 import { EditImage as _editImage } from "./EditImage";
 import config from "./config";
 

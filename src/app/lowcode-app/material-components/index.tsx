@@ -6,6 +6,9 @@ import { EditContainer } from "./Container";
 import { EditCard } from "./Card";
 import { EditSearch } from "./Search";
 import { EditImage } from "./Image";
+import { EditTable } from "./Table";
+import { EditTableItem } from "./TableItem";
+
 export default {
   button: EditButton,
   page: EditPage,
@@ -15,4 +18,6 @@ export default {
   card: EditCard,
   search: EditSearch,
   image: EditImage,
+  table: EditTable,
+  tableItem: EditTableItem,
 };

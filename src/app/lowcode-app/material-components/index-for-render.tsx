@@ -6,7 +6,8 @@ import { Container } from "./Container/RunTimeContainer";
 import { Card } from "./Card/RunTimeCard";
 import { Search } from "./Search/RunTimeSearch";
 import { Image } from "./Image/RunTimeImage";
-
+import { Table } from "./Table/RunTimeTable";
+import { TableItem } from "./TableItem/RunTimeTableItem";
 export default {
   button: Button,
   page: Page,
@@ -16,4 +17,6 @@ export default {
   card: Card,
   search: Search,
   image: Image,
+  table: Table,
+  tableItem: TableItem,
 };
